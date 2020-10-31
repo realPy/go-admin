@@ -153,7 +153,7 @@ func (param Parameters) WithPKs(id ...string) Parameters {
 func (param Parameters) PKs() []string {
 	pk := param.GetFieldValue(PrimaryKey)
 	if pk == "" {
-		return make([]string, 1)
+		return []string{}
 	}
 	return strings.Split(param.GetFieldValue(PrimaryKey), ",")
 }
@@ -164,7 +164,11 @@ func (param Parameters) DeletePK() Parameters {
 }
 
 func (param Parameters) PK() string {
-	return param.PKs()[0]
+	pk:=param.PKs()
+	if len(pk) > 0 {
+		return param.PKs()[0]
+	}
+	return ""
 }
 
 func (param Parameters) IsAll() bool {
